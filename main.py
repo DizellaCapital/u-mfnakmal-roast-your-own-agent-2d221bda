@@ -14,11 +14,12 @@ def main():
     line = LINE.strip()
     if not line:
         raise SystemExit("empty roast line")
-    if len(line) > 200:
-        raise SystemExit("roast line exceeds 200 characters")
     data = line.encode("utf-8")
+    # The gate reads the file: 1-200 bytes, no trailing newline.
     if not 1 <= len(data) <= 200:
         raise SystemExit("roast line must be 1-200 bytes")
+    if len(line) > 200:
+        raise SystemExit("roast line exceeds 200 characters")
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     try:
         os.makedirs(out_dir, exist_ok=True)
